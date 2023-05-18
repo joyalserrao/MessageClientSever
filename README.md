@@ -1,6 +1,6 @@
 # MessageClientSever
 
-![Alt Text](https://github.com/joyalserrao/MessageClientSever/blob/main/screen.gif)
+![Alt Text](screen.gif)
 
 *  Architecture MVVM - SwiftUI
    Basic Sever Client comm using Native Network framework.
@@ -17,6 +17,7 @@
 2.  Tap on Connect button , (It will run Sever & connect client)
 3.  Type text (type here..) & press send button
 4.  There is 2 List view , able to see Client & Sever messages.
+
 
 
 
