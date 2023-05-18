@@ -9,8 +9,8 @@ import Foundation
 import Network
 
 protocol Server {
-    func startServer()
-    func stopServer()
+  func startServer()
+  func stopServer()
 }
 
 enum StatusCode {
@@ -23,7 +23,7 @@ final class TCPServer: Server {
     private var connections: [NWConnection] = []
     var messageRecciver: ((String) -> Void)?
     var statusServer: ((StatusCode) -> Void)?
-
+    
     func startServer() {
         let parameters = NWParameters.tcp
         listener = try? NWListener(using: parameters, on: 8080)
@@ -40,10 +40,10 @@ final class TCPServer: Server {
                 break
             }
         }
-
+        
         listener?.newConnectionHandler = { newConnection in
             newConnection.start(queue: .main)
-
+            
             newConnection.stateUpdateHandler = { state in
                 switch state {
                 case .ready:
@@ -61,19 +61,18 @@ final class TCPServer: Server {
         listener?.start(queue: .main)
         
     }
-
-   
+    
+    
     private func handleWebSocketConnection(connection: NWConnection) {
         connections.append(connection)
-
+        
         connection.receive(minimumIncompleteLength: 1, maximumLength: 65536) { data, _, isComplete, error in
             if let data = data, !data.isEmpty {
                 let receivedMessage = String(data: data, encoding: .utf8)
                 print("Received message from client: \(receivedMessage ?? "")")
-                self.handleReceivedMessage(data: data)
                 self.messageRecciver?(receivedMessage ?? "")
             }
-
+            
             if isComplete {
                 print("Received all data from client. Closing connection.")
                 self.closeConnection(connection: connection)
@@ -86,19 +85,14 @@ final class TCPServer: Server {
             }
         }
     }
-
-    private func handleReceivedMessage(data: Data) {
-        // Handle the received message as per your WebSocket server logic
-        // For example, you can parse the message, perform some operations, and send a response back to the client.
-    }
-
+    
     private func closeConnection(connection: NWConnection) {
         if let index = self.connections.firstIndex(of: connection) {
             self.connections.remove(at: index)
         }
         connection.cancel()
     }
-
+    
     func stopServer() {
         connections.forEach { $0.cancel() }
         connections.removeAll()

@@ -13,7 +13,7 @@ class MessageDashboardViewModel: ObservableObject {
     @Published var newMessage: String = ""
     @Published var statusOfSever: Bool = false
     
-    //TODO:- sttaus message display
+    //TODO:- status message display
     @Published var connectionsStatusInfo: String = ""
 
 
