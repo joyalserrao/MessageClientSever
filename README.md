@@ -7,7 +7,7 @@
    Where TCPSever & TCPClient both class used for connection
 
 * Applied SOILD priciple:
- ex: Dependency inversion techniquic used  MessageSever & MessageClient.
+ ex: Dependency inversion (DIP) used in MessageSever & MessageClient.
  
 * Unit test for Sever connection.
 
